@@ -1,0 +1,5 @@
+The solution is ready for deployment as it follows all the guidelines as stated in Assignment #5 worksheet specified in brightspace under Software development concepts. 
+As the input date range provided by user all the associated data of customers, products and employees is extracted and stored in the provided xml filename by user and
+if not data is present for the provided date a XML file is still created only filled with default XML tags. Thus, indicating no purchase made during that period.
+All exceptions have been handled at the database level for situations when a connection cannnot be established with the database server. 
+There is no irregularity or inconsistency in the formation of the XML file.
