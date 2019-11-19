@@ -1,0 +1,68 @@
+
+a) SELECT 
+    customerName, customers.city, offices.city
+FROM
+    customers
+        INNER JOIN
+    employees ON customers.salesRepEmployeeNumber = employees.employeeNumber
+        INNER JOIN
+    offices ON employees.officeCode = offices.officeCode
+WHERE
+    customers.city != offices.city;
+
+b) SELECT DISTINCT
+    (orderNumber), priceEach, MSRP
+FROM
+    products
+        INNER JOIN
+    orderdetails ON products.productCode = orderdetails.productCode
+WHERE
+    priceEach < MSRP;
+
+c) SELECT 
+    products.productName,
+    AVG((((orderdetails.priceEach - products.buyprice) / (products.buyPrice)) * 100)) AS MarkUp
+FROM
+    orders
+        INNER JOIN
+    orderdetails ON orderdetails.orderNumber = orders.orderNumber
+        INNER JOIN
+    products ON orderdetails.productcode = products.productCode
+WHERE
+    orderDate BETWEEN '2004-01-01' AND '2004-12-31'
+GROUP BY products.productName
+ORDER BY MarkUp DESC
+LIMIT 5;
+
+
+d) SELECT 
+    a.EmpNumber,
+    a.firstName,
+    a.lastName,
+    AVG(a.avgdiv) AS AverageDiversity
+FROM
+    (SELECT 
+        employees.employeeNumber AS EmpNumber,
+            employees.firstName AS firstName,
+            employees.lastName AS lastName,
+            COUNT(DISTINCT (orderdetails.productCode)) AS avgdiv
+    FROM
+        employees
+    INNER JOIN customers ON customers.salesRepEmployeeNumber = employees.employeeNumber
+    INNER JOIN orders ON orders.customerNumber = customers.customerNumber
+    INNER JOIN orderdetails ON orderdetails.orderNumber = orders.orderNumber
+    GROUP BY orderdetails.orderNumber
+    ORDER BY avgdiv DESC) a
+GROUP BY a.EmpNumber
+ORDER BY AverageDiversity DESC
+LIMIT 3;
+
+e) SELECT 
+    AVG(shippedDate - orderDate), officeCode
+FROM
+    orders
+        NATURAL JOIN
+    customers
+        INNER JOIN
+    employees ON customers.salesRepEmployeeNumber = employees.employeeNumber
+GROUP BY officeCode;
