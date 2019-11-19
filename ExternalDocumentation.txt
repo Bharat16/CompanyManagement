@@ -1,0 +1,67 @@
+﻿Overview 
+--------
+
+This program works on fetching the data from database and writing it to a XML file.
+A summary of the formatting requirements are in the csci 3901 course assignment #5 information in the course's brightspace space.
+
+The user provides the start date, end date and xml file name with absolute path as the input.
+The program then works on fetching the data for the provided range of date and then printing the data to a xml file in the required format.
+
+
+
+Files and external data
+-----------------------
+
+There are three main files:
+  - Company.java  		-- Class which contains the main function and is used to execute the program.
+  - DbOperations.java		-- Class which is responsible for establishing the database connection, extracting information 	from the database, storing it in a data structure and then using this data to create XML file in the required format.This class is called from the main class.
+  - DbOperationInterface.java 	-- Interface implemented in DbOperations.java for more organized program structure.
+
+The directory contains following versions of the code:
+
+directory version -- Updated code to work on bluenose.cs.dal.ca
+
+
+Data structures and their relations to each other
+-------------------------------------------------
+-Arraylists customerInfoList, productInfoList, employeeInfoList are used as data structures of type hash map to store each customers information, products information, employees information  as a hash map in key value pairs.
+
+Methods
+-------
+
+- connectToSQL()    -- to connect to the database
+- runSqlQuery()     -- to run the required SQL queries and store the output to the data Structure
+- writeDataToFile() -- to write the data to an XML file in the required format
+
+
+Assumptions
+-----------
+
+  - All dates are input in the form YYYY-MM-DD.
+  - If there is no data available for the input date range period a blank XML will be created with only the default tags.
+  - User is prompted to input the xml filename with the complete file path
+
+Choices
+-------
+
+- User is prompted to enter start and end dates for output report and filename
+
+
+Key algorithms and design elements
+----------------------------------
+
+--Establish the database connection using the default JDBC ODBC MySQL driver
+--Accept as an input from the user that start and end dates for for extraction of data and also accept the output filename with complete file path for the XML document
+--Based upon input time duration run SQL query to extract customer information and store the result as each row in an a index of a arraylist in the form of a hashmap
+--Based upon input time duration run SQL query to extract product information and store the result as each row in an a index of a arraylist in the form of a hashmap
+--Based upon input time duration run SQL query to extract employee information and store the result as each row in an a index of a arraylist in the form of a hashmap
+--All stored data arraylists,startDate,endDate and xmlFileName will be passed as arguments to the method writeDataToFile which will be responsible to create XML file
+--Create xml elements using Element class and append them as per the xml tree structure
+--If the arraylists are blank it means no data is available for that specified duration hence do not print the xml tags asociated with that arraylist
+
+
+
+Limitations
+-----------
+
+-Can fetch the data only for YYYY-MM-DD date format.
